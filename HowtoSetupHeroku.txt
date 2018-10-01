@@ -1,0 +1,56 @@
+Go to heroku.com and sign in
+yahoo email and Myheroku1
+
+toolbelt.heroku.com  Install the heroku Command Line which will let us deploy our apps
+$heroku --help  will install the CLI and then show you the help
+$heroku login
+put in your log in details
+Now you can communicate between your machine command line and the heroku servers
+We can get started creatign and deploying applications
+$heroku keys:add   to add your public ssh key to heroku
+press yes
+$heroku keys   //prints all our keys in heroku
+if you want to remove a key then
+$heroku keys:remove emailassociated
+
+To test our communication with heroku
+ $ssh -v git@heroku.com
+ This will return a lot of things
+ It will say are you sure ? authenticity of the host can not be established
+ press yes
+ If successful you will see "authentication succeeded (publickey)" otherwise
+ you will see "permission denied(public key)"
+
+ In orderto push our app to heroku, it demands that instead of the localhost:3000 in the listener
+ in server.js we place an enviroment variable.
+ You can see your pc environment variables
+ $env   or $SET on windows
+
+ heroku will set the variable port
+ const port = process.env.PORT || 3000 //this set the port to the PORT variable that heroku
+ uses but we also set OR to 3000 so the app still runs in our machine
+ process.env is an object with key:value pairs containing all the environment variables
+ Now replace 3000 in the listener with port
+Once heroku starts the app it should run $node server.js
+however heroku does not know which file to start
+Instead heroku runs a script
+Therefore go to package.json and in scripts add a new line
+"start": "node server.js"   //heroku is looking for that start script to run our app
+if you type $npm start from your project folder this is similar to $node server.js
+$npm test  //will run tests but for the moment we have no tests set up
+
+
+git add .  // to add all files
+$git commit -m 'Setup start script and heroku port' //This is for the git in your pc
+For the github.com now
+$git push
+
+Then from inside the project folder
+$heroku create //this will create a new app in our heroku account and will also add another remote to the
+newly created heroku github address that was created for your app.
+This means that besides git push that we did earlier, now we need to push to that heroku github address
+$git push heroku
+under launching is the url that we can place in the browser to run our app this time via heroku
+here is a simpler way
+$heroku open  //opens up the app in the default browser.
+heroku created a unique url If you have a domain name you can link this to this url

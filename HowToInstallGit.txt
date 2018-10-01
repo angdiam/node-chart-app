@@ -1,0 +1,70 @@
+install git at https://git-scm.com There you can find a free book
+On Mac just say yes to all. On Windows you need to add Bash terminal
+
+On a new terminal go to your project folder for example node-web-server
+$git --version
+$git init    //need to be executed from the root of the project Creates a .git folder in your project
+$ls -a   list all folders including the hidden ones
+Never update git folder manually, we will write commands for this
+
+By default git does not track all your files. You have to specify which ones.
+Folders like node_modules should not be tracked as the user should install this from his machine and vary
+from machine and version
+$git status      shows the files that are untracked
+
+$git add package.json      Will add that file to the tracked files to be saved/committed
+$git status
+
+$git add public/
+$git add server.js
+$git add views/
+
+Make a new file .gitignore  This is the file that git reads and what ever file or folder you put in the git will ignore it
+$git status
+$git add .gitignore
+
+Now it is time to commit save our files
+$git commit -m 'Initial commit'       the -m message is necessary so we recognise the commit by name
+Now we have saved the project in its current state and we can revert to that in the future if we want
+
+
+GIT IS FOR VERSION CONTROL IN YOUR MACHINE NOW WE WILL TALK ABOUT GITHUB TO PUSH YOUR CODE IN TO
+A SERVER SO YOUR STORE YOUR GIT REPOSITORY IN A 3RD PARTY SERVER
+IN WINDOWS YOU NEED TO TYPE ALL COMMANDS FRON BASH TERMINAL
+We use SSH keys to identify that the right PC talks to the right server. Google github ssh keys for more Generate SSH Keys
+
+First we need to check if your PC has an SSH key and if not we will create it
+$ls -al      //is list all     ~ is a shortcut for the user directory
+if there are an ssh keys these will be at the ~/.ssh folder
+$ls -al ~/.ssh   //if you have a file id_rsa then you have a key
+To generate a key type the following exactly
+$ssh-keygen -t rsa -b 4096 -C 'myemailaddress'
+press enter to the 2 questions asked and the public/private keys have been created
+$ls -al ~/.ssh shoudl now  show id_rsa which is your private key and you never give away
+and id_rsa.pub which is your public key which you will need to pass to github,heroku services
+Now we need to run the ssh agent to add this key which will know to pass to github
+$eval "$(ssh-agent -s)"    //this runs the agent you should get something like Agent pid 16547 different number
+$ssh-add ~/.ssh/id_rsa   //this tells the agent where to find the private key
+you should get Identity added
+
+Goto github.com and sign up/in
+I used my yahoo email and password is Mygithub1
+Go to Settings>SSH and GPG Keys Give ita title e.g. macbookpro13
+Follow the instructions in https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/
+copy paste the command to terminal and this will copy the id_rsa.pub to clipboard so you paste it in Github and submit
+To confirm that everything has gone well we will try communicating with github
+$ssh -T git@github.com
+Say yes and should receive a Hi by  Github
+
+At home of github.com > New Repository and name it node-course-2-web-server
+Create Repository
+we want "...push an existing repository from the command line"
+We will copy paste the 2 commands to the terminal
+The first command remote says to what url to push the code. Right now we want git but later we will add another remote
+for heroku
+git remote add origin https://github.com/angdiam/node-course-2-web-server.git
+the second command   $
+git push -u origin master
+actually pushes the code to the github and now our repository has our project code
+Now you can see your repository
+You will never need to set up the ssh keys again for this pc
