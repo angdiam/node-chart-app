@@ -7,7 +7,7 @@ const port = process.env.PORT || 3000;
 
 let app = express();
 
-app.use('express.static(publicPath)');
+app.use(express.static(publicPath));
 
 
 
